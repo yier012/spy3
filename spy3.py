@@ -56,10 +56,19 @@ response=urllib.request.urlopen('http://python.org/')
 html=response.read()
 print(html)
 
+##########財政部統一發票號碼擷取##########
+import urllib
+from bs4 import BeautifulSoup
+import urllib.request
 
-
-
-
+request_url='https://invoice.etax.nat.gov.tw/'
+htmlContent=urllib.request.urlopen(request_url).read()
+#print(htmlContent)
+soup=BeautifulSoup(htmlContent,"html.parser")
+results=soup.find_all("span",class_="font-weight-bold etw-color-red")
+subTitle=["特別獎","特獎","頭獎","增開六獎"]
+for index,item in enumerate(results[:4]):
+    print(">>{0}:{1}".format(subTitle[index],item.text))
 
 
 
