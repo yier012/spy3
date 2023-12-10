@@ -37,5 +37,34 @@ for single_tr in bsObj.find("table",{"title":"牌告匯率"}).find("tbody").find
     w.writerows(data)
 f.close()
 
+##########證交所擷取##########
+import pandas as pd
+df=pd.read_html("https://isin.twse.com.tw/isin/C_public.jsp?strMode=2",
+                encoding="big5hkscs",header=0)
+newdf=df[0][df[0]["產業別"]>"0"]
+newdf=newdf.drop(["CFICode","備註"],axis=1)
+df2=newdf["有價證券代號及名稱"].str.split('　',expand=True)
+df2=df2.rename(columns={0:"股票代號",1:"股票名稱"})
+newdf=newdf.drop(["有價證券代號及名稱"],axis=1)
+newdf=df2.join(newdf)
+newdf.to_excel('E2-1-1-2-output.xlsx',sheet_name='sheet1',index=False)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     
