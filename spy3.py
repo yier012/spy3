@@ -49,8 +49,12 @@ newdf=newdf.drop(["有價證券代號及名稱"],axis=1)
 newdf=df2.join(newdf)
 newdf.to_excel('E2-1-1-2-output.xlsx',sheet_name='sheet1',index=False)
 
+##########urllib練習##########
+import urllib.request
 
-
+response=urllib.request.urlopen('http://python.org/')
+html=response.read()
+print(html)
 
 
 
